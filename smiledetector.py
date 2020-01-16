@@ -2,7 +2,7 @@
 """
 Created on Fri Aug  9 16:29:12 2019
 Emirhan YILMAZ CV & AI HOMEWORK (SMİLE DETECTOR)
-@author: Acer
+@author: emirhanylmzz
 """
 import cv2
 
