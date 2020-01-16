@@ -8,8 +8,7 @@ import cv2
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-upperbody_cascade = cv2.CascadeClassifier('haarcascade_upperbody.xml')
-lowerbody_cascade = cv2.CascadeClassifier('haarcascade_lowerbody.xml')
+smile_cascade = cv2.CascadeClassifier('haarcascade_smile.xml')
 
 def detect(gray, frame):
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -20,12 +19,9 @@ def detect(gray, frame):
         eyes = eye_cascade.detectMultiScale(roi_gray, 1.3, 22)
         for(ex, ey, ew, eh) in eyes:
             cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-    upper = upperbody_cascade.detectMultiScale(gray, 1.1, 7,  minSize = (40, 70))
-    for(x, y, w, h) in upper:
-        cv2.rectangle(frame, (x,y), (x+w, y+h), (255,255,255), 2)
-    lower = lowerbody_cascade.detectMultiScale(gray, 1.1, 5,  minSize = (50, 50))
-    for(x, y, w, h) in lower:
-        cv2.rectangle(frame, (x,y), (x+w, y+h), (255,255,255), 2)
+        smiles = smile_cascade.detectMultiScale(roi_gray, 1.7, 22)
+        for (ax, ay, aw, ah) in smiles:
+            cv2.rectangle(roi_color, (ax, ay), (ax+aw, ay+ah), (0, 0, 255), 2)
     return frame
 
 video_capture = cv2.VideoCapture(0)
